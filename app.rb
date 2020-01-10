@@ -15,19 +15,20 @@ class Battle < Sinatra::Base
   end
 
   get '/play' do
-    @player_1_name = $game.player_name(:player_1)
-    @player_2_name = $game.player_name(:player_2)
-    @player_1_hp = $game.player_hp(:player_1)
-    @player_2_hp = $game.player_hp(:player_2)
+    @player_1_name = $game.player_1.name
+    @player_2_name = $game.player_2.name
+    @player_1_hp = $game.player_1.hitpoints
+    @player_2_hp = $game.player_2.hitpoints
     erb :play
   end
 
   get '/attack' do
-    @player_1_name = $game.player_name(:player_1)
-    @player_2_name = $game.player_name(:player_2)
-    Game.new.attack(:player_2)
-    erb :attack
-    # redirect '/play'
+    @player_1_name = $game.player_1.name
+    @player_2_name = $game.player_2.name
+    $game.attack
+    # p $game.turn
+    # erb :attack
+    redirect '/play'
   end
 
 # start the server if ruby file executed directly
